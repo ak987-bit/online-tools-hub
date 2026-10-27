@@ -400,6 +400,100 @@
         // Automatically update the copyright year
         document.getElementById("year").textContent = new Date().getFullYear();
     </script>
+<!-- CGPA Calculator -->
+<section style="max-width:900px;margin:30px auto;padding:25px;background:white;border-radius:12px;box-shadow:0 2px 10px #ddd;">
 
+    <h2>CGPA Calculator</h2>
+    <p>Calculate your CGPA using grade points and credit hours.</p>
+
+    <div id="cgpaSubjects">
+
+        <div class="cgpa-subject" style="display:flex;gap:10px;margin:12px 0;flex-wrap:wrap;">
+            <input type="text" placeholder="Subject name" aria-label="Subject name" style="flex:2;min-width:140px;padding:12px;">
+            <input type="number" placeholder="Grade points" aria-label="Grade points" min="0" max="4" step="0.01" style="flex:1;min-width:120px;padding:12px;">
+            <input type="number" placeholder="Credit hours" aria-label="Credit hours" min="1" max="6" step="1" style="flex:1;min-width:120px;padding:12px;">
+        </div>
+
+        <div class="cgpa-subject" style="display:flex;gap:10px;margin:12px 0;flex-wrap:wrap;">
+            <input type="text" placeholder="Subject name" aria-label="Subject name" style="flex:2;min-width:140px;padding:12px;">
+            <input type="number" placeholder="Grade points" aria-label="Grade points" min="0" max="4" step="0.01" style="flex:1;min-width:120px;padding:12px;">
+            <input type="number" placeholder="Credit hours" aria-label="Credit hours" min="1" max="6" step="1" style="flex:1;min-width:120px;padding:12px;">
+        </div>
+
+    </div>
+
+    <button type="button" onclick="addCGPASubject()" style="padding:12px 18px;margin:8px 4px;background:#198754;color:white;border:0;border-radius:5px;cursor:pointer;">
+        + Add Subject
+    </button>
+
+    <button type="button" onclick="calculateCGPA()" style="padding:12px 18px;margin:8px 4px;background:#0d6efd;color:white;border:0;border-radius:5px;cursor:pointer;">
+        Calculate CGPA
+    </button>
+
+    <p id="cgpaResult" aria-live="polite" style="font-weight:bold;font-size:20px;"></p>
+
+</section>
+
+<script>
+function addCGPASubject() {
+    const container = document.getElementById("cgpaSubjects");
+
+    const row = document.createElement("div");
+    row.className = "cgpa-subject";
+    row.style.cssText = "display:flex;gap:10px;margin:12px 0;flex-wrap:wrap;";
+
+    row.innerHTML = `
+        <input type="text" placeholder="Subject name" aria-label="Subject name" style="flex:2;min-width:140px;padding:12px;">
+        <input type="number" placeholder="Grade points" aria-label="Grade points" min="0" max="4" step="0.01" style="flex:1;min-width:120px;padding:12px;">
+        <input type="number" placeholder="Credit hours" aria-label="Credit hours" min="1" max="6" step="1" style="flex:1;min-width:120px;padding:12px;">
+        <button type="button" onclick="this.parentElement.remove()" style="padding:8px;">Remove</button>
+    `;
+
+    container.appendChild(row);
+}
+
+function calculateCGPA() {
+    const rows = document.querySelectorAll(".cgpa-subject");
+    let totalPoints = 0;
+    let totalCredits = 0;
+
+    for (const row of rows) {
+        const inputs = row.querySelectorAll("input");
+        const grade = inputs[1].value;
+        const credits = inputs[2].value;
+
+        if (grade === "" || credits === "") {
+            document.getElementById("cgpaResult").textContent =
+                "Please enter grade points and credit hours for every subject.";
+            return;
+        }
+
+        const g = Number(grade);
+        const c = Number(credits);
+
+        if (!Number.isFinite(g) || !Number.isFinite(c) ||
+            g < 0 || g > 4 || c < 1 || c > 6 ||
+            !Number.isInteger(c)) {
+            document.getElementById("cgpaResult").textContent =
+                "Enter grade points from 0 to 4 and whole credit hours from 1 to 6.";
+            return;
+        }
+
+        totalPoints += g * c;
+        totalCredits += c;
+    }
+
+    if (totalCredits === 0) {
+        document.getElementById("cgpaResult").textContent =
+            "Please add at least one subject.";
+        return;
+    }
+
+    const cgpa = totalPoints / totalCredits;
+
+    document.getElementById("cgpaResult").textContent =
+        "Your CGPA is: " + cgpa.toFixed(2);
+}
+</script>
 </body>
 </html>
