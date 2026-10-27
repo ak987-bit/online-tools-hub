@@ -3,227 +3,403 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Online Tools Hub</title>
+    <meta name="description" content="Free online tools for percentage calculation, age calculation, and word counting. Simple, fast, and easy to use.">
+    <title>Online Tools Hub | Free Online Tools</title>
 
     <style>
         * {
+            margin: 0;
+            padding: 0;
             box-sizing: border-box;
         }
 
         body {
-            margin: 0;
             font-family: Arial, sans-serif;
-            background: #f1f5f9;
+            background: #f3f6fb;
             color: #1e293b;
+            line-height: 1.6;
         }
 
         header {
-            background: #1d4ed8;
+            background: linear-gradient(135deg, #172554, #2563eb);
             color: white;
+            padding: 35px 20px;
             text-align: center;
-            padding: 35px 15px;
         }
 
         header h1 {
-            margin: 0 0 10px;
+            font-size: 36px;
+            margin-bottom: 8px;
         }
 
-        main {
-            max-width: 850px;
-            margin: 25px auto;
+        header p {
+            font-size: 16px;
+            color: #dbeafe;
+        }
+
+        nav {
+            background: #ffffff;
             padding: 15px;
+            text-align: center;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
         }
 
-        .tool {
+        nav a {
+            color: #1d4ed8;
+            text-decoration: none;
+            margin: 0 14px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #0f172a;
+        }
+
+        .intro {
+            text-align: center;
+            padding: 35px 15px 10px;
+        }
+
+        .intro h2 {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .intro p {
+            color: #64748b;
+        }
+
+        .tools-container {
+            max-width: 1100px;
+            margin: 25px auto 50px;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .tool-card {
             background: white;
-            padding: 22px;
-            margin-bottom: 20px;
-            border-radius: 12px;
-            box-shadow: 0 3px 12px #00000010;
+            padding: 26px;
+            border-radius: 16px;
+            box-shadow: 0 5px 20px rgba(15, 23, 42, 0.07);
+            border: 1px solid #e2e8f0;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
 
-        input, textarea, button {
+        .tool-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 28px rgba(15, 23, 42, 0.12);
+        }
+
+        .tool-icon {
+            font-size: 34px;
+            margin-bottom: 10px;
+        }
+
+        .tool-card h3 {
+            font-size: 22px;
+            margin-bottom: 8px;
+        }
+
+        .tool-card p {
+            color: #64748b;
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            font-size: 14px;
+            margin: 12px 0 6px;
+        }
+
+        input,
+        textarea {
             width: 100%;
             padding: 12px;
-            margin-top: 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
             font-size: 16px;
-            border-radius: 7px;
+            font-family: inherit;
+            background: #ffffff;
+            color: #1e293b;
         }
 
-        input, textarea {
-            border: 1px solid #cbd5e1;
+        input:focus,
+        textarea:focus {
+            outline: 2px solid #93c5fd;
+            border-color: #2563eb;
+        }
+
+        textarea {
+            min-height: 135px;
+            resize: vertical;
         }
 
         button {
+            width: 100%;
+            margin-top: 16px;
+            padding: 13px;
             background: #2563eb;
             color: white;
             border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
             cursor: pointer;
+            transition: background 0.2s;
         }
 
         button:hover {
-            background: #1e40af;
+            background: #1d4ed8;
         }
 
         .result {
+            margin-top: 16px;
+            padding: 12px;
+            border-radius: 8px;
+            background: #eff6ff;
+            color: #1d4ed8;
             font-weight: bold;
-            color: #15803d;
             overflow-wrap: anywhere;
         }
 
+        .hidden {
+            display: none;
+        }
+
+        .word-stats {
+            margin-top: 12px;
+            color: #475569;
+            font-size: 14px;
+        }
+
         footer {
+            background: #172554;
+            color: white;
             text-align: center;
-            padding: 20px;
-            color: #64748b;
+            padding: 25px 15px;
+        }
+
+        footer p {
+            margin: 5px 0;
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 28px;
+            }
+
+            nav a {
+                display: inline-block;
+                margin: 5px 8px;
+            }
+
+            .intro h2 {
+                font-size: 24px;
+            }
+
+            .tools-container {
+                padding: 0 14px;
+                gap: 18px;
+            }
+
+            .tool-card {
+                padding: 20px;
+            }
         }
     </style>
 </head>
 
 <body>
 
-<header>
-    <h1>Online Tools Hub</h1>
-    <p>Free and simple tools for everyday use</p>
-</header>
+    <header id="home">
+        <h1>Online Tools Hub</h1>
+        <p>Simple, free tools to make your everyday tasks easier.</p>
+    </header>
 
-<main>
+    <nav aria-label="Main navigation">
+        <a href="#home">Home</a>
+        <a href="#percentage">Percentage</a>
+        <a href="#age">Age Calculator</a>
+        <a href="#words">Word Counter</a>
+    </nav>
 
-    <section class="tool">
-        <h2>Percentage Calculator</h2>
-        <p>Calculate your marks percentage.</p>
-
-        <input id="obtained"
-               type="number"
-               min="0"
-               placeholder="Obtained marks">
-
-        <input id="total"
-               type="number"
-               min="1"
-               placeholder="Total marks">
-
-        <button onclick="calculatePercentage()">
-            Calculate Percentage
-        </button>
-
-        <p id="percentageResult" class="result"></p>
+    <section class="intro">
+        <h2>Explore Our Free Tools</h2>
+        <p>Choose a tool below and get your result in seconds.</p>
     </section>
 
-    <section class="tool">
-        <h2>Age Calculator</h2>
-        <p>Calculate your age from your birth date.</p>
+    <main class="tools-container">
 
-        <input id="birthDate" type="date">
+        <!-- Percentage Calculator -->
+        <section class="tool-card" id="percentage">
+            <div class="tool-icon">📊</div>
+            <h3>Percentage Calculator</h3>
+            <p>Calculate marks percentage or find what percentage one number is of another.</p>
 
-        <button onclick="calculateAge()">
-            Calculate Age
-        </button>
+            <label for="obtained">Obtained Marks or Number</label>
+            <input type="number" id="obtained" placeholder="e.g. 450" min="0" step="any">
 
-        <p id="ageResult" class="result"></p>
-    </section>
+            <label for="total">Total Marks or Number</label>
+            <input type="number" id="total" placeholder="e.g. 500" min="0" step="any">
 
-    <section class="tool">
-        <h2>Word Counter</h2>
-        <p>Count words and characters in your text.</p>
+            <button type="button" id="percentageButton">Calculate Percentage</button>
 
-        <textarea id="textInput"
-                  rows="5"
-                  placeholder="Write or paste your text here..."
-                  oninput="countWords()"></textarea>
+            <div class="result hidden" id="percentageResult" role="status" aria-live="polite"></div>
+        </section>
 
-        <p id="wordResult">Words: 0 | Characters: 0</p>
-    </section>
+        <!-- Age Calculator -->
+        <section class="tool-card" id="age">
+            <div class="tool-icon">🎂</div>
+            <h3>Age Calculator</h3>
+            <p>Enter your date of birth to calculate your age in years, months, and days.</p>
 
-</main>
+            <label for="birthdate">Your Date of Birth</label>
+            <input type="date" id="birthdate">
 
-<footer>
-    <p>Online Tools Hub | Free Tools for Everyone</p>
-</footer>
+            <button type="button" id="ageButton">Calculate Age</button>
 
-<script>
-    function calculatePercentage() {
-        const obtained = Number(
-            document.getElementById("obtained").value
-        );
+            <div class="result hidden" id="ageResult" role="status" aria-live="polite"></div>
+        </section>
 
-        const total = Number(
-            document.getElementById("total").value
-        );
+        <!-- Word Counter -->
+        <section class="tool-card" id="words">
+            <div class="tool-icon">📝</div>
+            <h3>Word Counter</h3>
+            <p>Count the words and characters in your text.</p>
 
-        const result = document.getElementById(
-            "percentageResult"
-        );
+            <label for="textInput">Enter Your Text</label>
+            <textarea id="textInput" placeholder="Type or paste your text here..."></textarea>
 
-        if (
-            document.getElementById("obtained").value === "" ||
-            document.getElementById("total").value === "" ||
-            total <= 0 ||
-            obtained < 0 ||
-            obtained > total
-        ) {
+            <div class="word-stats" id="wordStats" aria-live="polite">
+                Words: 0 | Characters: 0
+            </div>
+
+            <button type="button" id="clearButton">Clear Text</button>
+        </section>
+
+    </main>
+
+    <footer>
+        <p><strong>Online Tools Hub</strong></p>
+        <p>Free and simple online tools for everyone.</p>
+        <p>&copy; <span id="year"></span> Online Tools Hub</p>
+    </footer>
+
+    <script>
+        // Percentage Calculator
+        document.getElementById("percentageButton").addEventListener("click", function () {
+            const obtainedInput = document.getElementById("obtained");
+            const totalInput = document.getElementById("total");
+            const result = document.getElementById("percentageResult");
+
+            const obtained = obtainedInput.value.trim();
+            const total = totalInput.value.trim();
+
+            result.classList.remove("hidden");
+
+            if (obtained === "" || total === "") {
+                result.textContent = "Please enter both numbers.";
+                return;
+            }
+
+            const first = Number(obtained);
+            const second = Number(total);
+
+            if (!Number.isFinite(first) || !Number.isFinite(second) ||
+                first < 0 || second <= 0) {
+                result.textContent = "Enter valid numbers. Total must be greater than zero.";
+                return;
+            }
+
+            const percentage = (first / second) * 100;
+            result.textContent = "Your percentage is " + percentage.toFixed(2) + "%";
+        });
+
+        // Age Calculator
+        document.getElementById("ageButton").addEventListener("click", function () {
+            const input = document.getElementById("birthdate");
+            const result = document.getElementById("ageResult");
+
+            result.classList.remove("hidden");
+
+            if (!input.value) {
+                result.textContent = "Please select your date of birth.";
+                return;
+            }
+
+            const parts = input.value.split("-").map(Number);
+            const birth = new Date(parts[0], parts[1] - 1, parts[2]);
+            const today = new Date();
+
+            birth.setHours(0, 0, 0, 0);
+            today.setHours(0, 0, 0, 0);
+
+            if (
+                birth.getFullYear() !== parts[0] ||
+                birth.getMonth() !== parts[1] - 1 ||
+                birth.getDate() !== parts[2] ||
+                birth > today
+            ) {
+                result.textContent = "Please select a valid date that is not in the future.";
+                return;
+            }
+
+            let years = today.getFullYear() - birth.getFullYear();
+            let months = today.getMonth() - birth.getMonth();
+            let days = today.getDate() - birth.getDate();
+
+            if (days < 0) {
+                months--;
+                const previousMonthDays = new Date(
+                    today.getFullYear(),
+                    today.getMonth(),
+                    0
+                ).getDate();
+                days += previousMonthDays;
+            }
+
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+
             result.textContent =
-                "Enter valid marks. Obtained marks cannot exceed total marks.";
-            return;
+                "Your age is " + years + " years, " +
+                months + " months, and " + days + " days.";
+        });
+
+        // Word Counter
+        const textInput = document.getElementById("textInput");
+        const wordStats = document.getElementById("wordStats");
+
+        textInput.addEventListener("input", updateWordCount);
+
+        function updateWordCount() {
+            const text = textInput.value;
+            const trimmed = text.trim();
+
+            const words = trimmed === ""
+                ? 0
+                : trimmed.split(/\s+/).length;
+
+            const characters = text.length;
+
+            wordStats.textContent =
+                "Words: " + words + " | Characters: " + characters;
         }
 
-        const percentage = (obtained / total) * 100;
+        document.getElementById("clearButton").addEventListener("click", function () {
+            textInput.value = "";
+            updateWordCount();
+            textInput.focus();
+        });
 
-        result.textContent =
-            "Your percentage is " + percentage.toFixed(2) + "%";
-    }
-
-    function calculateAge() {
-        const input = document.getElementById("birthDate").value;
-        const result = document.getElementById("ageResult");
-
-        if (!input) {
-            result.textContent = "Please select your birth date.";
-            return;
-        }
-
-        const birth = new Date(input + "T00:00:00");
-        const today = new Date();
-
-        if (birth > today) {
-            result.textContent = "Birth date cannot be in the future.";
-            return;
-        }
-
-        let years = today.getFullYear() - birth.getFullYear();
-        let months = today.getMonth() - birth.getMonth();
-        let days = today.getDate() - birth.getDate();
-
-        if (days < 0) {
-            months--;
-            const previousMonthDays = new Date(
-                today.getFullYear(),
-                today.getMonth(),
-                0
-            ).getDate();
-
-            days += previousMonthDays;
-        }
-
-        if (months < 0) {
-            years--;
-            months += 12;
-        }
-
-        result.textContent =
-            "Your age is " + years + " years, " +
-            months + " months and " + days + " days.";
-    }
-
-    function countWords() {
-        const text = document.getElementById("textInput").value.trim();
-
-        const words = text ? text.split(/\s+/).length : 0;
-        const characters = document.getElementById("textInput").value.length;
-
-        document.getElementById("wordResult").textContent =
-            "Words: " + words + " | Characters: " + characters;
-    }
-</script>
+        // Automatically update the copyright year
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
 
 </body>
 </html>
