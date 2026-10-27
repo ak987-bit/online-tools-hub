@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Tools Hub</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f1f5f9;
+            color: #1e293b;
+        }
+
+        header {
+            background: #1d4ed8;
+            color: white;
+            text-align: center;
+            padding: 35px 15px;
+        }
+
+        header h1 {
+            margin: 0 0 10px;
+        }
+
+        main {
+            max-width: 850px;
+            margin: 25px auto;
+            padding: 15px;
+        }
+
+        .tool {
+            background: white;
+            padding: 22px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px #00000010;
+        }
+
+        input, textarea, button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            font-size: 16px;
+            border-radius: 7px;
+        }
+
+        input, textarea {
+            border: 1px solid #cbd5e1;
+        }
+
+        button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1e40af;
+        }
+
+        .result {
+            font-weight: bold;
+            color: #15803d;
+            overflow-wrap: anywhere;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #64748b;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Online Tools Hub</h1>
+    <p>Free and simple tools for everyday use</p>
+</header>
+
+<main>
+
+    <section class="tool">
+        <h2>Percentage Calculator</h2>
+        <p>Calculate your marks percentage.</p>
+
+        <input id="obtained"
+               type="number"
+               min="0"
+               placeholder="Obtained marks">
+
+        <input id="total"
+               type="number"
+               min="1"
+               placeholder="Total marks">
+
+        <button onclick="calculatePercentage()">
+            Calculate Percentage
+        </button>
+
+        <p id="percentageResult" class="result"></p>
+    </section>
+
+    <section class="tool">
+        <h2>Age Calculator</h2>
+        <p>Calculate your age from your birth date.</p>
+
+        <input id="birthDate" type="date">
+
+        <button onclick="calculateAge()">
+            Calculate Age
+        </button>
+
+        <p id="ageResult" class="result"></p>
+    </section>
+
+    <section class="tool">
+        <h2>Word Counter</h2>
+        <p>Count words and characters in your text.</p>
+
+        <textarea id="textInput"
+                  rows="5"
+                  placeholder="Write or paste your text here..."
+                  oninput="countWords()"></textarea>
+
+        <p id="wordResult">Words: 0 | Characters: 0</p>
+    </section>
+
+</main>
+
+<footer>
+    <p>Online Tools Hub | Free Tools for Everyone</p>
+</footer>
+
+<script>
+    function calculatePercentage() {
+        const obtained = Number(
+            document.getElementById("obtained").value
+        );
+
+        const total = Number(
+            document.getElementById("total").value
+        );
+
+        const result = document.getElementById(
+            "percentageResult"
+        );
+
+        if (
+            document.getElementById("obtained").value === "" ||
+            document.getElementById("total").value === "" ||
+            total <= 0 ||
+            obtained < 0 ||
+            obtained > total
+        ) {
+            result.textContent =
+                "Enter valid marks. Obtained marks cannot exceed total marks.";
+            return;
+        }
+
+        const percentage = (obtained / total) * 100;
+
+        result.textContent =
+            "Your percentage is " + percentage.toFixed(2) + "%";
+    }
+
+    function calculateAge() {
+        const input = document.getElementById("birthDate").value;
+        const result = document.getElementById("ageResult");
+
+        if (!input) {
+            result.textContent = "Please select your birth date.";
+            return;
+        }
+
+        const birth = new Date(input + "T00:00:00");
+        const today = new Date();
+
+        if (birth > today) {
+            result.textContent = "Birth date cannot be in the future.";
+            return;
+        }
+
+        let years = today.getFullYear() - birth.getFullYear();
+        let months = today.getMonth() - birth.getMonth();
+        let days = today.getDate() - birth.getDate();
+
+        if (days < 0) {
+            months--;
+            const previousMonthDays = new Date(
+                today.getFullYear(),
+                today.getMonth(),
+                0
+            ).getDate();
+
+            days += previousMonthDays;
+        }
+
+        if (months < 0) {
+            years--;
+            months += 12;
+        }
+
+        result.textContent =
+            "Your age is " + years + " years, " +
+            months + " months and " + days + " days.";
+    }
+
+    function countWords() {
+        const text = document.getElementById("textInput").value.trim();
+
+        const words = text ? text.split(/\s+/).length : 0;
+        const characters = document.getElementById("textInput").value.length;
+
+        document.getElementById("wordResult").textContent =
+            "Words: " + words + " | Characters: " + characters;
+    }
+</script>
+
+</body>
+</html>
